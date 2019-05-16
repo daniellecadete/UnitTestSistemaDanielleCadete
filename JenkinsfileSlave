@@ -3,14 +3,15 @@ node {
     stage('Build') {
       node() {
         echo 'Exer. EXTRA Iniciando..'
+	    sh "sudo chown -R jenkins: ${WORKSPACE}"
       }
      }  
       
     stage("Test") {
       node('maven') {
             echo 'Testing..'
-            sh 'hostname'
-            // sh "sudo docker run -v /home/docker/devops/exercicio3/srv/jenkins/workspace/${JOB_NAME}:/workspace -w /workspace maven:latest mvn install"
+            //sh 'hostname'
+            sh "sudo docker run -v /home/dani/devops/exercicio3/srv/jenkins/workspace/${JOB_NAME}:/workspace -w /workspace maven:latest mvn install"
       }
     }     
 }
