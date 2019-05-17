@@ -3,7 +3,7 @@ node {
       node() {
         echo 'Master'
         sh 'hostname'
-        sh "sudo chown -R jenkins: ${WORKSPACE}"
+        //sh "sudo chown -R jenkins: ${WORKSPACE}"
         deleteDir()
         checkout scm
         sh 'echo "res" > result'
