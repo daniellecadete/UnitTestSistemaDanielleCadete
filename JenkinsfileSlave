@@ -1,14 +1,27 @@
 node {
     stage('Build') {
       node() {
-        echo 'Master'
-        sh 'hostname'
-        //sh "sudo chown -R jenkins: ${WORKSPACE}"
-        deleteDir()
-        checkout scm
-        sh 'echo "res" > result'
-        stash includes: '**/result', name: 'app'
-        
+        echo 'Master...'
+        try {
+			  sh "sudo chown -R jenkins: ${WORKSPACE}"
+			  deleteDir()			  
+			  checkout scm
+			  sh "sudo printenv > resultado"
+			 }
+			catch (e) {
+			  status = 'F'
+			  echo 'Falhou.'
+			  throw e
+			}
+			finally {
+		      if (status=='S'){ 
+			    sh 'echo "Master construído!"  >> resultado'
+				stash includes: '**/resultado', name: 'res'
+			   }
+		      else{
+		        sh 'echo "Construção finalizada com erro!" >> resultado'
+				archiveArtifacts artifacts: '**/resultado', fingerprint: true
+			 }        
       }
      }  
       
