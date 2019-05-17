@@ -2,8 +2,13 @@ node {
     stage('Build') {
       node() {
         echo 'Master'
-        sh 'hostname'
+        //sh 'hostname'
         //sh "sudo chown -R jenkins: ${WORKSPACE}"
+        deleteDir()
+        checkout scm
+        sh 'echo "res" > result'
+        stash includes: '**/result', name: 'app'
+        
       }
      }  
       
