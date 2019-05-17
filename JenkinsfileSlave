@@ -17,7 +17,7 @@ node {
         echo 'Slave'
         sh 'hostname'
         
-        sh 'behave --no-capture /home/dani/devops/exercicio3/srv/jenkins/workspace/${JOB_NAME}'
+        "dockerrun -v /home/dani/devops/exercicio3/srv/jenkins/workspace/${JOB_NAME}:/workspace -w /workspace maven:latest mvn install"
         
         unstash 'app'
         sh 'cat result'
