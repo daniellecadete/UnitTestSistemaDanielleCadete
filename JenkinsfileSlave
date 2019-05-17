@@ -2,14 +2,16 @@ node {
     stage('Build') {
       node() {
         echo 'Master'
-        sh 'hostname'
+        // sh 'hostname'
+        sh "sudo chown -R jenkins: ${WORKSPACE}"
       }
      }  
       
     stage("Test") {
       node('slave') {
         echo 'Slave'
-        sh 'hostname'
+        //sh 'hostname'
+        sh "sudo docker run -v /home/dani/devops/exercicio3/srv/jenkins/workspace/${JOB_NAME}:/workspace -w /workspace maven:latest mvn install"
       }
     }     
 }
