@@ -17,6 +17,8 @@ node {
         echo 'Slave'
         sh 'hostname'
         
+        sh 'docker run -v /home/dani/devops/exercicio3/srv/jenkins/workspace/${JOB_NAME}:/workspace -w /workspace -w /workspace maven:latest mvn clean install' 
+        
         unstash 'app'
         sh 'cat result'
         archiveArtifacts artifacts: '**/result', fingerprint: true
