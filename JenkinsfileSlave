@@ -2,7 +2,7 @@ node {
     stage('Build') {
       node() {
         echo 'Master'
-        //sh 'hostname'
+        sh 'hostname'
         //sh "sudo chown -R jenkins: ${WORKSPACE}"
         deleteDir()
         checkout scm
@@ -15,7 +15,7 @@ node {
     stage("Test") {
       node('slave') {
         echo 'Slave'
-        //sh 'hostname'
+        sh 'hostname'
         
         unstash 'app'
         sh 'cat result'
