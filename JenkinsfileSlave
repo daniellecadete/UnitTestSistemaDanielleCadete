@@ -28,12 +28,12 @@ node {
     stage("Test") {
       node('slave') {
         echo 'Slave'
-        sh 'hostname'
-        
+        //sh 'hostname'
+        sh "sudo docker run -v /home/dani/devops/exercicio3/srv/jenkins/workspace/${JOB_NAME}:/workspace -w /workspace maven:latest mvn install"
+	
         unstash 'app'
         sh 'cat result'
         archiveArtifacts artifacts: '**/result', fingerprint: true
-        //sh "sudo docker run -v /home/dani/devops/exercicio3/srv/jenkins/workspace/${JOB_NAME}:/workspace -w /workspace maven:latest mvn install"
       }
     }     
 }
