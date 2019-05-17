@@ -17,7 +17,7 @@ node {
         echo 'Slave'
         sh 'hostname'
         
-        "docker run -v /home/dani/devops/exercicio3/srv/jenkins/workspace/${JOB_NAME}:/workspace -w /workspace maven:latest mvn install"
+        sh "docker run -v /home/dani/devops/exercicio3/srv/jenkins/workspace/${JOB_NAME}:/workspace -w /workspace maven:latest mvn install"
         
         unstash 'app'
         sh 'cat result'
