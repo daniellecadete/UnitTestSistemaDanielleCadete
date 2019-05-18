@@ -17,7 +17,7 @@ node {
         echo 'Slave'
         sh 'hostname'
         try {
-	    sh '-v /home/dani/devops/exercicio3/srv/jenkins/workspace/${JOB_NAME}:/workspace -w /workspace maven:latest mvn clean install'
+	    sh ' /home/dani/devops/exercicio3/srv/jenkins/workspace/${JOB_NAME}:/workspace -w /workspace maven:latest mvn clean install'
             //sh "mvn clean install"
 	    echo 'Testes realizados!'
             archiveArtifacts artifacts: '**/resultado', fingerprint: true
