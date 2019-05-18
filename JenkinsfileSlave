@@ -5,9 +5,7 @@ node {
         sh 'hostname'
         deleteDir()
         checkout scm
-        sh 'echo "res" > result'
-        stash includes: '**/result', name: 'app'
-        
+        stash includes: '**', name: 'app'         
       }
      }  
       
