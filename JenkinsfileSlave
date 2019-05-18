@@ -3,7 +3,7 @@ node {
       node() {
         echo 'Master'
         sh 'hostname'
-        //sh "sudo chown -R jenkins: ${WORKSPACE}"
+        sh "sudo chown -R jenkins: ${WORKSPACE}"
         deleteDir()
         checkout scm
         sh 'echo "res" > result'
@@ -17,7 +17,8 @@ node {
         echo 'Slave'
         sh 'hostname'
         try {
-            sh "mvn clean install"
+	    sh "sudo docker run -v /home/dani/devops/exercicio3/srv/jenkins/workspace/${JOB_NAME}:/workspace -w /workspace maven:latest mvn clean install"
+            //sh "mvn clean install"
 	    echo 'Testes realizados!'
             archiveArtifacts artifacts: '**/resultado', fingerprint: true
             }
