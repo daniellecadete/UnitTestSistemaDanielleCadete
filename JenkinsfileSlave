@@ -16,8 +16,9 @@ node {
         echo 'Slave'
         sh 'hostname'
         unstash 'app'
+        sh 'cat result'
         sh "mvn clean install"
-	echo 'Testes realizados!'
+	//echo 'Testes realizados!'
       }
     }     
 }
