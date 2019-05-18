@@ -14,10 +14,9 @@ node {
     stage("Test") {
       node('slave') {
         echo 'Slave'
-	unstash 'app'
         sh 'hostname'
+        unstash 'app'
         sh "mvn clean install"
-	//unstash 'app'
 	//echo 'Testes realizados!'
       }
     }     
