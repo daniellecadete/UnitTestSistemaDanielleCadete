@@ -3,7 +3,6 @@ node {
       node() {
         echo 'Master'
         sh 'hostname'
-        //sh "sudo chown -R jenkins: ${WORKSPACE}"
         deleteDir()
         checkout scm
         sh 'echo "res" > result'
@@ -16,27 +15,9 @@ node {
       node('slave') {
         echo 'Slave'
         sh 'hostname'
-        try {
-	    sh ' /home/dani/devops/exercicio3/srv/jenkins/workspace/${JOB_NAME}:/workspace -w /workspace maven:latest mvn clean install'
-            //sh "mvn clean install"
-	    echo 'Testes realizados!'
-            archiveArtifacts artifacts: '**/resultado', fingerprint: true
-            }
-        catch (e) {
-            echo 'Falhou.'
-            throw e
-            }
-        finally {
-		    unstash 'res'
-		    if (status=='S')		     { 
-		       sh 'echo "Testes finalizados com sucesso"  >> resultado'
-			 }
-		    else{
-		       sh 'echo "Testes finalizados com erro"  >> resultado'
-			   archiveArtifacts artifacts: '**/resultado', fingerprint: true
-			}
-        }
-        //sh "sudo docker run -v /home/dani/devops/exercicio3/srv/jenkins/workspace/${JOB_NAME}:/workspace -w /workspace maven:latest mvn install"
+        unstash 'app'
+        sh "mvn clean install"
+	echo 'Testes realizados!'
       }
     }     
 }
